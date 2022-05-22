@@ -1,5 +1,5 @@
 
-<h1 class="text-center head">Admin List</h1>
+<h4 class="text-center head">Admin List</h4>
 <table class="table table-hover table-bordered table-striped">
 	<tr>
 	<td colspan="9">
@@ -8,7 +8,7 @@
 
 	</td>
 	</tr>
-	<tr><th>SN</th><th>Name</th><th>Password</th><th></th></tr>
+	<tr><th>SN</th><th>Name</th><!-- <th>Password</th> --><th>Email</th><th></th></tr>
 	<?php 
 $conn = mysqli_connect(HOST,USER,PASS,DBNAME);
 // Check connection
@@ -27,7 +27,8 @@ if (mysqli_num_rows($result) > 0) {
         <tr>
           <td><?php echo $sn++;?></td>
           <td><?php echo $row['username'];?></td>
-          <td><?php echo $row['password'];?></td>
+          <!-- <td><?php echo $row['password'];?></td> -->
+          <td><?php echo $row['email'];?></td>
           <td>
          	<a href="<?php echo SITE_URL.'/admin/index.php?manager=admin&action=edit-admin&id='.$row['id'];?>"><input type="button" value="Edit" class="btn btn-info btn-md"/></a>
          	<a onClick="javascript: return confirm('Please confirm deletion');" class="delete" href="<?php echo SITE_URL.'/admin/index.php?manager=admin&action=delete-admin&id='.$row['id'];?>"><input type="button" value="Delete" class="btn btn-danger btn-md"/></a>

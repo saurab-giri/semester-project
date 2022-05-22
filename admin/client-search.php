@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('includes.php');
 $conn=mysqli_connect(HOST,USER,PASS,DBNAME);
 	if (!$conn) {

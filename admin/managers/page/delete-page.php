@@ -6,6 +6,7 @@
 	$results = mysqli_query($con, $sql);
 	print_r($sql);
 	if ($results) {
+		$_SESSION['message']='Page deleted successfully!!';
 		redirect(SITE_URL.'/admin/index.php?manager=page');
 		exit;
 	}

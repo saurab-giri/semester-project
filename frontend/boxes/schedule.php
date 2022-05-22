@@ -11,9 +11,7 @@
 	  die("Connection failed: " . $conn->connect_error);
 	}
 
-	$sql = "SELECT * FROM gym_schedule";
-	$result = $conn->query($sql);
-	if (mysqli_num_rows($result) > 0) {
+
 	// output data of each row
 	?>
 <div class="schedule-box">
@@ -24,74 +22,85 @@
 		<h5>Morning Classes</h5>
 		<div class="morning-group table-responsive-sm">
 			<table class="table-bordered schedule-table" style="width:100%">
-				<?php while($row = mysqli_fetch_assoc($result)) { 
-					//print_r($row); ?>
+				
 			  <tr>
 			    <th>Days</th>
-			    <th><?php echo $row['time']?></th>
-			    <th>7:30-8:30</th>
-			    <th>8:30-9:30</th>
-			    <th>9:30-10:30</th>
+			    <?php 
+			    $times = array('05:00 am-06:00 am','06:00 am-07:00 am','07:00 am-08:00 am','08:00 am-09:00 am');
+				foreach($times as $time){
+			    	//$times[] = $row['time'];
+			    	?>
+			    <th><?php echo $time;?></th>
+				<?php }?>
 			  
 			  </tr>
+			  <?php 
+			  $days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday'];
+			  foreach($days as $day){
+			  ?>
 			  <tr>
-			    <td><?php echo $row['day']; ?></td>
-			    <td><?php echo $row['session'];?></td>
-			    <td>Zumba</td>
-			    <td>Piloxing</td>
-			    <td>Aerobics</td>
+			    <td><?php echo $day; ?></td>
+			    <?php foreach($times as $time){
+			    	?>
+			    	<td><?php
+					$sql = "SELECT * FROM gym_schedule where class ='Morning Shift' and day='$day' and time='$time'";
+					$result = $conn->query($sql);
+					if (mysqli_num_rows($result) > 0) {
+				    while($row = mysqli_fetch_assoc($result)) { 
+			    	if($row['time'] == $time){  
+			    	echo $row['session'];
+			    	}
+			    	}
+			    	}else{
+			    		echo '-';
+			    	}
+			    	?></td>
+				<?php }?>
 			  </tr>
-			  
-			<?php }}?>
+				<?php }?>
 			</table>
 		</div>
 		<div class="evening row">
 			<div class="evening-group col-8">
 				<h5>Evening Group Classes</h5>
 				<table class="table-bordered schedule-table" style="width:100%">
-				  <tr>
-				    <th>Days</th>
-				    <th>6:30-7:30</th>
-				    <th>7:30-8:30</th>
-				    <th>8:30-9:30</th>
-				  </tr>
-				  <tr>
-				    <td>Sunday</td>
-				    <td>Yoga</td>
-				    <td>Zumba</td>
-				    <td>Piloxing</td>
-				  </tr>
-				  <tr>
-				    <td>Monday</td>
-				    <td>Yoga</td>
-				    <td>Zumba</td>
-				    <td>Piloxing</td>
-				  </tr>
-				  <tr>
-				   <td>Tuesday</td>
-				    <td>Yoga</td>
-				    <td>Zumba</td>
-				    <td>Piloxing</td>
-				  </tr>
-				  <tr>
-				    <td>Wednesday</td>
-				    <td>Yoga</td>
-				    <td>Zumba</td>
-				    <td>Piloxing</td>
-				  </tr>
-				  <tr>
-				    <td>Thursday</td>
-				    <td>Yoga</td>
-				    <td>Zumba</td>
-				    <td>Piloxing</td>
-				  </tr>
-				  <tr>
-				    <td>Friday</td>
-				    <td>Yoga</td>
-				    <td>Zumba</td>
-				    <td>Piloxing</td>
-				  </tr>
-				</table>
+				
+			  <tr>
+			    <th>Days</th>
+			    <?php 
+			    $times = array('05:00 pm-06:00 pm','06:00 pm-07:00 pm','07:00 pm-08:00 pm');
+				foreach($times as $time){
+			    	//$times[] = $row['time'];
+			    	?>
+			    <th><?php echo $time;?></th>
+				<?php }?>
+			  
+			  </tr>
+			  <?php 
+			  $days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday'];
+			  foreach($days as $day){
+			  ?>
+			  <tr>
+			    <td><?php echo $day; ?></td>
+			    <?php foreach($times as $time){
+			    	?>
+			    	<td><?php
+					$sql = "SELECT * FROM gym_schedule where class ='Evening Shift' and day='$day' and time='$time'";
+					$result = $conn->query($sql);
+					if (mysqli_num_rows($result) > 0) {
+				    while($row = mysqli_fetch_assoc($result)) { 
+			    	if($row['time'] == $time){  
+			    	echo $row['session'];
+			    	}
+			    	}
+			    	}else{
+			    		echo '-';
+			    	}
+			    	?></td>
+				<?php }?>
+			  </tr>
+				<?php }?>
+			</table>
 			</div>
 			<div class="evening-class col-4">
 				<h5>Evening Extra Classes</h5>

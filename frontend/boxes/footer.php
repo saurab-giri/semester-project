@@ -20,9 +20,9 @@
 				<div class="col-lg-4 col-sm-12 footer-blk ">
 					<ul>
 						<li>CONTACT INFORMATION</li>
-						<li>Ramkot,kathmandu</li>
-						<li>E-mail:info@ramkotgym.com</li>
-						<li>Tel:01-8868686</li>
+						<li>Ramkot, kathmandu</li>
+						<li>E-mail: ramkoygymhouse@gmail.com</li>
+						<li>Tel: 01-8868686</li>
 					</ul>
 				</div>
 				<div class="col-lg-2 col-sm-12 footer-blk ">

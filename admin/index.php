@@ -1,8 +1,19 @@
 <?php 
+// if(empty($_SESSION["username"])) {
+// // if(!isset($_COOKIE["username"])) 
 
-if(!isset($_COOKIE["username"])) 
+// 	header("location:login.php"); 
+// }
 
-	header("location:login.php"); 
+session_start();
+
+if ( isset( $_SESSION['username'] ) ) {
+    // Grab user data from the database using the user_id
+    // Let them access the "logged in only" pages
+} else {
+    // Redirect them to the login page
+    header("Location: login.php");
+}
 
 ?>
 <?php 
@@ -16,11 +27,12 @@ include('includes.php');
 		<link rel="stylesheet" href="style.css">
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<script src="<?php echo SITE_URL.'admin/style.js'?>"></script>
+		<script src="style.js"></script>
+		<script src="jquery.js"></script>
 		<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
 		<script src='assets/bootstrap/js/bootstrap.min.js'></script>
 		<link rel="stylesheet" type="text/css" href="assets/fontawesome/css/all.min.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 </head>
 <body>
 	<div class="top-header">
@@ -36,10 +48,14 @@ include('includes.php');
 			<div class="logo col-lg-2 col-2">
 				<img src="../images/logo.png" height="100px">
 			</div>
-			<div class="title col-lg-8 col-10 text-center">
+			<div class="title col-lg-8 col-8 text-center">
 				<h1> Gym Management System</h1>
 				<h4>Ramkot Gym House</h4>
 			</div>
+			<div class="login-user col-lg-2 col-2 text-center">
+				<h5><i class="fa fa-user"></i> <?php echo $_SESSION['username']; ?></h5>
+			</div>
+
 	</header>
 	<div class="nav col-lg-12">
 		<nav class="navbar navbar-expand-md ">
@@ -91,7 +107,7 @@ include('includes.php');
 	    include('managers/'.$manager);  
 	}else{
 	    ?>
-	    <h1 class="text-center head dash-welcome">Welcome to admin dashboard!</h1>    
+	    <h1 class="text-center head dash-welcome">Welcome to admin dashboard! <?php echo $_SESSION['username']; ?></h1>    
 	   <?php 
 	}
 	     ?>          

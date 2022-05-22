@@ -34,7 +34,8 @@ session_start();
 					</span>    
             	</div>
 				<input type="submit" name="login_submit" value="LOGIN" class="btn-login"><br>
-				<input type="checkbox" name="remember"><span class="keep-login">keep me login</span>
+				<!-- <input type="checkbox" name="remember"><span class="keep-login">keep me login</span> -->
+				<a href="verify.php">forgot password ??</a>
 				
 			</form>
 		</div>

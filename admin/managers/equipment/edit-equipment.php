@@ -33,18 +33,25 @@ if(mysqli_num_rows($result)>0){
     <tr>
       <td>Quantity: </td>
       <td>
-        <input type="text" name="quantity" class=" input form-control" value="<?php echo $sch_row['quantity'];?>"required>
+        <input type="number" name="quantity" class=" input form-control" value="<?php echo $sch_row['quantity'];?>"required>
       </td>
     </tr>
     <tr>
-      <td>image: </td>
-      <td>
-        <input type="file" name="uploadfile" class="image-input form-control">
+      <td>Image: </td>
+      <td>image available
+        <?php 
+        if(!empty($sch_row['image'])){?>
+        <img src="<?php echo SITE_URL.'/admin/images/'.$sch_row['image'];?>" width="50" height="50">
+        <?php }else{?>
+        <p>No Image</p>
+        <?php }?>
       </td>
     </tr>
-     <input type="hidden" name="id" value="<?php echo $_GET['id'];?>">
-    <tr><td></td><td><br><input type="submit" name="edit_visitor" value="Edit Visitor" class="btn btn-info"/></td></tr>
-  </table>
+    <tr><td></td><td><input type="file" name="uploadfile" class="image-input form-control"  value="<?php echo $sch_row['image'];?>"></td>
+   </tr>
+    <input type="hidden" name="id" value="<?php echo $_GET['id'];?>">
+  <tr><td></td><td><br><input type="submit" name="edit_equipment" value="Edit Equipment" class="btn btn-info"/></td></tr>
+</table>
 </div>
 </form>
    

@@ -30,6 +30,11 @@ i.fa.fa-phone{
 	float: left;
 	padding: 0px !important;
 }
+.login-user{
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
 .header{
 	background-color: #286090;
 	padding:20px 100px;
@@ -141,10 +146,10 @@ img.login-img{
 }
 form .form-input{
 	position: relative;
-	margin: 30px 0;
+	margin: 20px 0;
 	font-family: poppins;
 }
-.form-input input, textarea{
+.form-input input{
 	width: 25%;
 	padding: 0 5px;
 	height: 40px;
@@ -203,6 +208,7 @@ input.image-input{
 	padding: 8px 18px;
     font-size: 18px;
     margin-top: 10px;
+    margin-bottom: 10px;
 	border-radius: 20px;
 	border: 1px solid #4c4cff;
 	outline: none;
@@ -247,5 +253,11 @@ td.label{
 	margin-top: 5px;
 }
 input.login-input{
+	color: #000;
+}
+
+.login-btn{
+	font-size: 20px;
+	font-weight: 500;
 	color: #000;
 }

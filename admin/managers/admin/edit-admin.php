@@ -1,6 +1,5 @@
 
 <?php
-session_start();
 $id = isset($_GET['id'])?$_GET['id']:'';
 
 $conn = mysqli_connect(HOST,USER,PASS,DBNAME);
@@ -23,21 +22,34 @@ if(mysqli_num_rows($result)>0){
 		<label class="col-form-label col-2">Username: </label>
 		<input type="text" name="username" class="col-sm-2 input form-control-static" value="<?php echo $sch_row['username'];?>"required>
 	</div>
+	<div class="form-input form-group ">
+		<label class="col-form-label col-2">Email: </label>
+		<input type="email" name="email" class="col-sm-2 input form-control-static" value="<?php echo $sch_row['email'];?>"required>
+	</div>
 	<div class="form-input form-group">
-		<label class="col-form-label col-2">Password: </label>
+		<label class="col-form-label col-2">Old Password: </label>
 		<input type="text" name="password" class="col-sm-2 input form-control-static"  value="<?php echo $sch_row['password'];?>"  required>
+
 	</div>
 	<div class="form-input form-group">
 		<label class="col-form-label col-2">New Password: </label>
 		<input type="text" name="newpassword" class="col-sm-2 input form-control-static"  value=""  required>
-	</div>
-	<div class="msg">
-		<?php
+		<div class="msg">
+			<?php
+	        if(isset($_SESSION["PassError"])){
+	            echo $_SESSION['PassError'];
+	            unset($_SESSION["PassError"]);
+	        }
+	   		 ?>  
+		</div>
+		<div class="msg">
+			<?php
 	        if(isset($_SESSION["Error"])){
 	            echo $_SESSION['Error'];
 	            unset($_SESSION["Error"]);
 	        }
 	   		 ?>  
+		</div>
 	</div>
 	<input type="hidden" name="id" value="<?php echo $_GET['id'];?>">
 	<div class="submit-botton">

@@ -7,23 +7,28 @@ session_start();
 if (isset($_POST['login_submit'])) {
 	$uname=$_POST['username'];
 	$pwd=$_POST['password'];
-	$remember = isset($_POST['remember']) ? '1' : '0';
+	//$remember = isset($_POST['remember']) ? '1' : '0';
 	$con=mysqli_connect(HOST,USER,PASS,DBNAME);
 	$sql="SELECT * FROM gym_login WHERE username='$uname' AND password='$pwd'";
 	$results=mysqli_query($con,$sql);
 	if (mysqli_num_rows($results)==1) {
-        if($remember==1){
-			setcookie("username",$uname,time()+86400);
-			setcookie("password",$pwd,time()+86400);
+        //if($remember==1){
+			// setcookie("username",$uname,time()+86400);
+			// setcookie("password",$pwd,time()+86400);
 			// second on page time 
+			$_SESSION["username"] = $uname;
+			$_SESSION["password"] = $pwd; 
+
 			header("location:index.php");
 		}
-		else{
-			setcookie("username"," " ,time() + 3600);
-			setcookie("password"," ",time()+3600);
-			header("location:index.php");
-			}
-    }
+		// else{
+		// 	setcookie("username"," " ,time() + 3600);
+		// 	setcookie("password"," ",time()+3600);
+		// 	// $_SESSION["username"] = "";
+		// 	// $_SESSION["password"] = ""; 
+		// 	header("location:index.php");
+		// 	}
+  //   }
     else{
 		$_SESSION['Error'] = "invalid username or password";
     	header("location: login.php");
@@ -32,8 +37,11 @@ if (isset($_POST['login_submit'])) {
 }
 
 if (isset($_POST['logout'])) {
-	setcookie("username","",time()-86400);
-	setcookie("password","",time()-86400);//for delete the cookie //destroy the cookie 
+	// setcookie("username","",time()-86400);
+	// setcookie("password","",time()-86400);//for delete the cookie //destroy the cookie 
+	session_unset();
+	// destroy the session
+	session_destroy();
     redirect(SITE_URL.'/admin/login.php');
 }
 
@@ -48,14 +56,14 @@ if(isset($_POST['add_page_submit'])){
 	$results = mysqli_query($con, $sql);
 	print_r($results);
 	if ($results) {
-		//$_SESSION['message'] = 'Page added successfully';
+		$_SESSION['message'] = 'Page added successfully!!';
 		redirect(SITE_URL.'/admin/index.php?manager=page');
 		exit;
 	}
 
  }
 
- if(isset($_POST['edit_page'])){
+ if(isset($_POST['edit_page_detail'])){
 	$id=$_POST['id'];
 	$title=$_POST['title'];
 	$description=$_POST['description'];
@@ -65,7 +73,7 @@ if(isset($_POST['add_page_submit'])){
 	$results = mysqli_query($con, $sql);
 	//print_r($results);
 	if ($results) {
-		//$_SESSION['message'] = 'Page added successfully';
+		$_SESSION['message'] = 'Page edited successfully!!';
 		redirect(SITE_URL.'/admin/index.php?manager=page');
 		exit;
 	}
@@ -76,7 +84,8 @@ if(isset($_POST['add_schedule'])){
 	$day=$_POST['day'];
 	$time1=date('h:i a', strtotime($_POST['time1']));
 	$time2=date('h:i a', strtotime($_POST['time2']));
-	$time=$time1."-".$time2;
+	$time=$time1. "-" .$time2;
+	//$time=$_POST['time'];
 	$session=$_POST['session'];
 	$class=$_POST['class'];
 
@@ -113,10 +122,15 @@ if(isset($_POST['add_trainer'])){
 	$name=$_POST['name'];
 	$address=$_POST['address'];
 	$phone=$_POST['phone'];
+	$email=$_POST['email'];
 	$filename = file_upload('uploadfile');
 	$qualification=$_POST['qualification'];
+	if(!preg_match('/^[0-9]{10}+$/', $phone)){
+		$_SESSION['contact_message'] = "*Invalid Phone format";
+	  redirect(SITE_URL.'/admin/index.php?manager=trainer-manager&action=add-trainer');
+	}
 	$con = mysqli_connect(HOST,USER,PASS,DBNAME);
-	$sql = "INSERT INTO gym_trainer (name,address,phone,qualification,image)VALUES ('$name', '$address', '$phone', '$qualification','$filename')";
+	$sql = "INSERT INTO gym_trainer (name,address,phone,email,qualification,image)VALUES ('$name', '$address', '$phone','$email', '$qualification','$filename')";
 	print_r($sql);
 	$results = mysqli_query($con, $sql);
 	if ($results) {
@@ -131,12 +145,22 @@ if(isset($_POST['edit_trainer'])){
 	$name=$_POST['name'];
 	$address=$_POST['address'];
 	$phone=$_POST['phone'];
+	$email=$_POST['email'];
 	$filename = file_upload('uploadfile');
 	$qualification=$_POST['qualification'];
+	if(!preg_match('/^[0-9]{10}+$/', $phone)){
+		$_SESSION['contact_message'] = "*Invalid Phone format";
+	  redirect(SITE_URL.'/admin/index.php?manager=trainer-manager&action=edit-trainer');
+	}
 	$con=mysqli_connect(HOST,USER,PASS,DBNAME);
-	$sql="UPDATE gym_trainer SET name='$name',address='$address',phone='$phone',qualification='$qualification',image='$filename' WHERE id='$id'";
+	if($filename == ""){
+	$sql="UPDATE gym_trainer SET name='$name',address='$address',phone='$phone',email='$email',qualification='$qualification' WHERE id='$id'";
+	}
+	else{
+		$sql="UPDATE gym_trainer SET name='$name',address='$address',phone='$phone',email='$email',qualification='$qualification',image='$filename' WHERE id='$id'";
+	}
 	$results = mysqli_query($con, $sql);
-	print_r($results);
+	//print_r($results);
 	if ($results) {
 		//$_SESSION['message'] = 'Page added successfully';
 		redirect(SITE_URL.'/admin/index.php?manager=trainer-manager');
@@ -148,9 +172,11 @@ if(isset($_POST['add_client'])){
 	$name=$_POST['name'];
 	$address=$_POST['address'];
 	$email=$_POST['email'];
+	$email = filter_var($email, FILTER_SANITIZE_EMAIL);
 	$phone=$_POST['phone'];
 	$gender=$_POST['gender'];
 	$age=$_POST['age'];
+	$_SESSION['name'] = $_POST['name'];
 	$filename = file_upload('uploadfile');
 	if(!preg_match('/^[0-9]{10}+$/', $phone)){
 		$_SESSION['contact_message'] = "*Invalid Phone format";
@@ -158,6 +184,10 @@ if(isset($_POST['add_client'])){
 	}
 	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 	  $_SESSION['email_message'] = "*Invalid email format";
+	  redirect(SITE_URL.'/admin/index.php?manager=client&action=add-client');
+	}
+	if ($age <16 || $age>80) {
+		$_SESSION['age_message'] = "*Age must be between 16-80";
 	  redirect(SITE_URL.'/admin/index.php?manager=client&action=add-client');
 	}
 	$con = mysqli_connect(HOST,USER,PASS,DBNAME);
@@ -180,8 +210,25 @@ if(isset($_POST['edit_client'])){
 	$gender=$_POST['gender'];
 	$age=$_POST['age'];
 	$filename = file_upload('uploadfile');
+	if(!preg_match('/^[0-9]{10}+$/', $phone)){
+		$_SESSION['contact_message'] = "*Invalid Phone format";
+	  redirect(SITE_URL.'/admin/index.php?manager=client&action=edit-client');
+	}
+	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+	  $_SESSION['email_message'] = "*Invalid email format";
+	  redirect(SITE_URL.'/admin/index.php?manager=client&action=edit-client');
+	}
+	if ($age <16 && $age>80) {
+		$_SESSION['age_message'] = "*Age must be between 16-80";
+	  redirect(SITE_URL.'/admin/index.php?manager=client&action=edit-client');
+	}
 	$con=mysqli_connect(HOST,USER,PASS,DBNAME);
-	$sql="UPDATE gym_clients SET name='$name',address='$address',age='$age',gender='$gender',phone='$phone',email='$email',image='$filename' WHERE id='$id'";
+	if($filename == ""){
+	$sql="UPDATE gym_clients SET name='$name',address='$address',age='$age',gender='$gender',phone='$phone',email='$email' WHERE id='$id'";
+	}
+	else{
+		$sql="UPDATE gym_clients SET name='$name',address='$address',age='$age',gender='$gender',phone='$phone',email='$email',image='$filename' WHERE id='$id'";
+	}
 	$results = mysqli_query($con, $sql);
 	//print_r($results);
 	if ($results) {
@@ -305,34 +352,59 @@ if(isset($_POST['edit_payment'])){
 if (isset($_POST['add_admin'])) {
 	$username=$_POST['username'];
 	$password=$_POST['password'];
+	$email=$_POST['email'];
+	$confirm_password=$_POST['confirm_password'];
+	$number = preg_match('@[0-9]@', $password);
+	$uppercase = preg_match('@[A-Z]@', $password);
+	$lowercase = preg_match('@[a-z]@', $password);
+	$specialChars = preg_match('@[^\w]@', $password);
 	 if (!preg_match("/^[a-zA-Z ]*$/",$username && strlen($username)<='3' )) {
-	 	$_SESSION['Error']="username must be in letter only and more than 3 letter";
+	 	$_SESSION['UserError']="*username must be in letter only and more than 3 letter";
 	 	redirect(SITE_URL.'/admin/index.php?manager=admin&action=add-admin');
 	 }
-	else if (strlen($password)<='6') {
-		$_SESSION['Error'] = "password should be more than 6 character";
+	if (strlen($password) < 8 || !$number || !$uppercase || !$lowercase || !$specialChars) {
+		$_SESSION['PassError'] = "*Password must be at least 8 characters in length and must contain at least one number, one upper case ";
 		 redirect(SITE_URL.'/admin/index.php?manager=admin&action=add-admin');
 	}
-	else{
-		$con=mysqli_connect(HOST,USER,PASS,DBNAME);
-		$sql="INSERT INTO gym_login(username,password) VALUES ('$username','$password')";
-		$results = mysqli_query($con, $sql);
-		if ($results) {
-			//$_SESSION['message'] = 'Page added successfully';
-			redirect(SITE_URL.'/admin/index.php?manager=admin');
-			exit;
+	if ($password != $confirm_password) {
+		$_SESSION['ConPassError'] = "*password should be same";
+		redirect(SITE_URL.'/admin/index.php?manager=admin&action=add-admin');
+	}
+	$con=mysqli_connect(HOST,USER,PASS,DBNAME);
+	$sql = "SELECT * FROM gym_login WHERE username='$username'";
+	$result = mysqli_query($con, $sql);
+	if(mysqli_num_rows($result)>0){
+	    $row = mysqli_fetch_assoc($result); 
+	    while($row) { 
+		    if($row['username'] == $username || $row['email']==$email){  
+		    	$_SESSION['UsernameError'] = "*Username or Email already exists.";
+				redirect(SITE_URL.'/admin/index.php?manager=admin&action=add-admin');
 			}
 		}
-}
+	}else
+	$sql="INSERT INTO gym_login(username,password,email) VALUES ('$username','$password','$email')";
+	$results = mysqli_query($con, $sql);
+	if ($results) {
+		//$_SESSION['message'] = 'Page added successfully';
+		redirect(SITE_URL.'/admin/index.php?manager=admin');
+		exit;
+		}
+	}
+
 
 if(isset($_POST['edit_admin'])){
 	$id=$_POST['id'];
 	$username=$_POST['username'];
+	$email=$_POST['email'];
 	$password=$_POST['password'];
 	$newpassword=$_POST['newpassword'];
+	$number = preg_match('@[0-9]@', $newpassword);
+	$uppercase = preg_match('@[A-Z]@', $newpassword);
+	$lowercase = preg_match('@[a-z]@', $newpassword);
+	$specialChars = preg_match('@[^\w]@', $newpassword);
 	
-	if (strlen($newpassword)<='6' && $password!=$newpassword) {
-		$_SESSION['Error'] = "password should be more than 6 letter";
+	if (strlen($password) < 8 || !$number || !$uppercase || !$lowercase || !$specialChars) {
+		$_SESSION['PassError'] = "*Password must be at least 8 characters in length and must contain at least one number, one upper case ";
 		redirect(SITE_URL.'/admin/index.php?manager=admin&action=edit-admin&id='.$id);
 	}
 	elseif($password==$newpassword){
@@ -341,7 +413,7 @@ if(isset($_POST['edit_admin'])){
 	}
 	else{
 	$con=mysqli_connect(HOST,USER,PASS,DBNAME);
-	$sql="UPDATE gym_login SET username='$username',password='$newpassword' WHERE id='$id'";
+	$sql="UPDATE gym_login SET username='$username',email='$email',password='$newpassword' WHERE id='$id'";
 	$results = mysqli_query($con, $sql);
 	if ($results) {
 		//$_SESSION['message'] = 'Page added successfully';
@@ -376,7 +448,12 @@ if(isset($_POST['edit_equipment'])){
 	$quantity = $_POST['quantity'];
 	$filename = file_upload('uploadfile');
 	$con=mysqli_connect(HOST,USER,PASS,DBNAME);
-	$sql="UPDATE gym_equipment SET equipment_name='$name',description='$description',quantity='$quantity',image='$filename' WHERE id='$id'";
+	if($filename==''){
+	$sql="UPDATE gym_equipment SET equipment_name='$name',description='$description',quantity='$quantity' WHERE id='$id'";
+	}
+	else{
+		$sql="UPDATE gym_equipment SET equipment_name='$name',description='$description',quantity='$quantity',image='$filename' WHERE id='$id'";
+	}
 	$results = mysqli_query($con, $sql);
 	print_r($results);
 	if ($results) {
@@ -393,15 +470,52 @@ if(isset($_POST['send_mail'])){
 	$subject = "Ramkot Gym House Notification";
 	$body = $_POST['message'];
 	$headers = "From: ramkotgymhouse@gmail.com";
+	print_r($name);
+	//print_r($body);
 	$mail= mail($to_email, $subject, $body, $headers);
 		if ($mail) {
+			print_r($body);
 		$_SESSION['mail_message'] = 'Mail Sent successfully!!';
 		redirect(SITE_URL.'/admin/index.php?manager=client');
 		exit;
 	}
+	else{
+		echo"Internet Problem!!";
+	}
 }
 
 
+if(isset($_POST['verify'])){
+	$to_email = $_POST['email'];
+	$subject = "Ramkot Gym House Notification";
+	$headers = "From: ramkotgymhouse@gmail.com";
+	$con=mysqli_connect(HOST,USER,PASS,DBNAME);
+	$sql = "SELECT * FROM gym_login WHERE email='$to_email'";
+	$result = mysqli_query($con, $sql);
+	if(mysqli_num_rows($result)>0){
+	    $row = mysqli_fetch_assoc($result); 
+	    while($row) { 
+		    if($row['email'] == $to_email){
+		    	
+		    	$body = "Your username is ".$row['username']." and Your password is ".$row['password'].".";
+		    	$mail= mail($to_email, $subject, $body, $headers);
+		    	if($mail){
+		    		$_SESSION['mail_message_success'] = ' Please check your email ,We send your information to '.$to_email;
+		    		header("location:verify.php");
+		    		exit;
+		    	}
+		    	else{
+		    		echo "Internet Problem!!";
+		    	}
+		    }
+		}
+	} 
+	 else{
+		    	$_SESSION['mail_message'] = '*Email not match';
+		    	header("location:verify.php");
+		    	exit;
+		    } 
 
+}
 
 

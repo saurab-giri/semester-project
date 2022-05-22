@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>website</title>
+	<title>Ramkot Gym House</title>
 	<link rel = "icon" href = "../images/logo.png" 
         type = "image/x-icon">
 		<link rel="stylesheet" href="style.css">

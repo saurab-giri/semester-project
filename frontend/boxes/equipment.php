@@ -26,7 +26,7 @@
 					<?php while($row = mysqli_fetch_assoc($result)) { 
 					if($row['image']!=''){
 					?>
-					<div class=" box1 col-4 text-center">
+					<div class=" box1 col-sm-12 col-lg-4 text-center">
 						<img src="<?php echo 'http://localhost/project/admin/images/'.$row['image'];?>" alt='trainer'>
 						<div class="equipment-description">
 						<h3><?php echo $row['equipment_name']; ?></h3>

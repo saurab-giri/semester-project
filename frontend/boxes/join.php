@@ -7,19 +7,19 @@ session_start();
 		<div class="main-form">
 			<form class="form" method="post" action='action.php' enctype="multipart/form-data">
 				<div class="form-input form-group ">
-					<label class="col-form-label">FullName :</label>
+					<label class="col-form-label col-3">FullName :</label>
 					<input type="text" name="name" class="col-2 input form-control-static" placeholder="Name" required>
 				</div>
 				<div class="form-input form-group ">
-					<label class="col-form-label">Address :</label>
+					<label class="col-form-label col-3">Address :</label>
 					<input type="text" name="address" class="col-2 input form-control-static" placeholder="Address" required>
 				</div>
 				<div class="form-input form-group ">
-					<label class="col-form-label">Age :</label>
+					<label class="col-form-label col-3">Age :</label>
 					<input type="text" name="age" class="col-1 input form-control-static" placeholder="Age" required>
 				</div>
 				<div class="form-input form-group ">
-					<label class="col-form-label">Contact no. :</label>
+					<label class="col-form-label col-3">Contact no. :</label>
 					<input type="text" name="contact" class="col-2 input form-control-static" placeholder="Contact" required>
 				</div>
 				<div class="msg email-msg error">					
@@ -32,7 +32,7 @@ session_start();
 					</span>    
             	</div>
 				<div class="form-input form-group ">
-					<label class="col-form-label">Email :</label>
+					<label class="col-form-label col-3">Email :</label>
 					<input type="text" name="email" class="col-2 input form-control-static" placeholder="Email" required>
 				</div>
 				<div class="msg email-msg error">					
@@ -45,8 +45,8 @@ session_start();
 					</span>    
             	</div>
 				<div class="form-input form-group">
-					<label class="col-form-label col-2">Shift :</label>
-					<select class="col-form-label col-2" name="shift">
+					<label class="col-form-label col-3">Shift :</label>
+					<select class="col-form-label col-3" name="shift">
 					  <option value="Morning Shift">Morning Shift</option>
 					  <option value="Evening Shift">Evening Shift</option>
 					  <option value="Extra Shift">Extra Shift</option>

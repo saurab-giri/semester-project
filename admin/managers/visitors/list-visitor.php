@@ -1,4 +1,4 @@
-<h1 class="text-center head">Website Visitors</h1>
+<h4 class="text-center head">Website Visitors</h4>
 <table class="table table-hover table-bordered table-striped">
   <tr>
   </td>

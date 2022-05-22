@@ -16,17 +16,17 @@ if(mysqli_num_rows($result) > 0){
 ?>
 
 <form method="post" action="<?php echo SITE_URL.'/admin/action.php';?>" enctype="multipart/form-data">
-  <div class="form-group form-control bg-dark text-white">
+  <div class="form-group form-div bg-dark text-white">
     <h3 class="text-center head">Edit Visitor Information</h3>
     <table align="center">
       <tr><td>Name: </td><td><input type="text" name="name" value="<?php echo $sch_row['name'];?>" class="form-control"/></td></tr>
         <tr><td>Address: </td><td><input type="text" name="address" value="<?php echo $sch_row['address'];?>" class="form-control"/></td></tr>
       </tr> 
-      <tr><td>Contact: </td><td><input type="text" name="contact" value="<?php echo $sch_row['contact'];?>" class="form-control"/></td></tr>
+      <tr><td>Contact: </td><td><input type="number" name="contact" value="<?php echo $sch_row['contact'];?>" class="form-control"/></td></tr>
        </tr> 
-        <tr><td>Age: </td><td><input type="text" name="age" value="<?php echo $sch_row['age'];?>" class="form-control"/></td></tr>
+        <tr><td>Age: </td><td><input type="number" name="age" value="<?php echo $sch_row['age'];?>" class="form-control"/></td></tr>
        </tr>
-       <tr><td>Email: </td><td><input type="text" name="email" value="<?php echo $sch_row['email'];?>" class="form-control"/></td></tr>
+       <tr><td>Email: </td><td><input type="email" name="email" value="<?php echo $sch_row['email'];?>" class="form-control"/></td></tr>
        </tr>
        <tr><td>Shift: </td><td><select class="" name="shift" value="<?php echo $sch_row['shift'];?>"> 
           <option value="<?php echo $sch_row['shift'];?>"><?php echo $sch_row['shift'];?></option>

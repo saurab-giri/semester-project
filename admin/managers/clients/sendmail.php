@@ -12,8 +12,10 @@ if(mysqli_num_rows($result)>0){
     $sch_row = mysqli_fetch_assoc($result);  
 }
 ?>
-<h3 class="text-center head">Send Mail To Client</h3>
+
       <form method="post" action="<?php echo SITE_URL.'/admin/action.php';?>" enctype="multipart/form-data" align="center">
+      <div class=" form-div form-group bg-dark text-white">
+        <h3 class="text-center head">Send Mail To Client</h3>
       <table align="center">
         <tr>
           <td>Name: </td>
@@ -37,3 +39,4 @@ if(mysqli_num_rows($result)>0){
          <input type="hidden" name="id" value="<?php echo $_GET['id'];?>">
         <tr><td></td><td><br> <input type="submit"  name="send_mail" value="Send Mail" class="btn btn-info"/></td></tr>
       </table>  
+    </div>

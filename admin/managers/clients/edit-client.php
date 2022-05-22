@@ -39,7 +39,15 @@ if(mysqli_num_rows($result)>0){
       </tr>
        <tr><td>Email: </td><td><input type="text" name="email" value="<?php echo $sch_row['email'];?>" class="form-control col-sm-8"/></td></tr>
        </tr>
-        <tr><td>Image: </td><td><input type="file" name="uploadfile" class="form-control"  value="<?php echo $sch_row['image'];?>"></td></tr>
+        <tr><td>Image: </td>
+          <td>image available
+              <?php 
+              if(!empty($sch_row['image'])){?>
+              <img src="<?php echo SITE_URL.'/admin/images/'.$sch_row['image'];?>" width="50" height="50">
+              <?php }else{?>
+              <p>No Image</p>
+              <?php }?></td>
+            <td><input type="file" name="uploadfile" class="form-control"  value="<?php echo $sch_row['image'];?>"></td></tr>
        </tr>
        <input type="hidden" name="id" value="<?php echo $_GET['id'];?>">
       <tr><td></td><td><br><input type="submit" name="edit_client" value="Edit Client" class="btn btn-info"/></td></tr>

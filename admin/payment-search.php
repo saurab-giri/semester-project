@@ -13,14 +13,13 @@ if (isset($_POST['query'])) {
 }
 $query = mysqli_query($conn, $sql);
 if (mysqli_num_rows($query) > 0) {?>
-	<div class="table-responsive">
 	<table class="table table-hover table-bordered table-striped text-center ">
 	<tr>
 		<td colspan="12">
-			<a href="<?php echo SITE_URL.'/admin/index.php?manager=payment&action=add-payment';?>"><input type="button" value="Add New Client" class="btn btn-info btn-sm add-btn"/></a>
+			<a href="<?php echo SITE_URL.'/admin/index.php?manager=payment&action=add-payment';?>"><input type="button" value="Add New Payment" class="btn btn-info btn-sm add-btn"/></a>
 		</td>	
 	</tr>
-	<tr><th>SN</th><th>Name</th><th>Phone</th><th>Email</th><th>Package</th><th>Received Amt</th><th>Outstanding Amt</th><th>Advance Amt</th><th>Payment Date</th><th>Expire Date</th><th></th></tr>
+	<tr><th>SN</th><th>Name</th><th>Phone</th><th>Package</th><th>Received Amt</th><th>Outstanding Amt</th><th>Advance Amt</th><th>Payment Date</th><th>Expire Date</th><th></th></tr>
 	<?php
 	$sn=1;
 	$exp_date='';
@@ -43,7 +42,6 @@ if (mysqli_num_rows($query) > 0) {?>
           ?>
           <td class="<?php echo $class; ?>"><?php echo $row['name'];?></td>
           <td><?php echo $row['phone'];?></td>
-          <td><?php echo $row['email'];?></td>
           <td><?php echo $row['package'];?></td>
           <td><?php echo $row['received'];?></td>
           <td class="msg"><?php echo $row['outstanding'];?></td>
@@ -73,5 +71,5 @@ if (mysqli_num_rows($query) > 0) {?>
 	?> 
 </table>
 </table>
-</div>
+
 

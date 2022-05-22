@@ -13,24 +13,31 @@ if(mysqli_num_rows($result)>0){
 }
 ?>
 
-<form method="post" action="<?php echo SITE_URL.'/admin/action.php';?>" enctype="multipart/form-data" align="center">
+
+ <form method="post" action="<?php echo SITE_URL.'admin/action.php';?>" enctype="multipart/form-data">
   <div class="form-div form-group bg-dark text-white">
-    <h3 class="text-center head">Edit Page Detail</h3>
-    <div class="form-input form-group">
-      <label class="col-form-label col-2">Title:</label>
-      <input type="text" name="title" class=" input form-control-static" value="<?php echo $sch_row['title'];?>"required>
-    </div>
-    <div class="form-input form-group">
-      <label class="col-form-label col-2">Description:</label>
-      <textarea type="text" name="description" class=" input form-control-static" required><?php echo $sch_row['description'];?></textarea>
-    </div>
-    <div class="form-input form-group">
-      <label class="col-form-label col-2">Image:</label>
-      <input type="file" name="uploadfile" class="image-input">
-    </div>
-    <input type="hidden" name="id" value="<?php echo $_GET['id'];?>">
-    <div class="submit-botton">
-      <input type="submit" name="edit_page" value="Edit Page" class="btn btn-info"/></tr>
-    </div>
+    <h3 class="text-center head">Edit Page Details</h3>
+    <table align="center">
+       <tr><td class="label">Title: </td><td><input type="text" name="title" value="<?php echo $sch_row['title'];?>" class="form-control" required /></td></tr>
+        <tr><td class="label">Description: </td><td><textarea name="description" class="form-control">
+          <?php echo $sch_row['description'];?>
+        </textarea></td></tr>
+         <tr><td>Image: </td>
+
+
+        <td>image available
+          <?php 
+          if(!empty($sch_row['image'])){?>
+          <img src="<?php echo SITE_URL.'/admin/images/'.$sch_row['image'];?>" width="50" height="50">
+          <?php }else{?>
+          <p>No Image</p>
+          <?php }?></td>
+        
+          </tr>
+    <tr><td></td><td><input type="file" name="uploadfile" class="image-input form-control"></td>
+   </tr>
+        <tr>
+        <td><input type="submit" name="edit_page_detail" value="Edit Page" class="btn btn-info"/></td></tr>
+      </table>  
   </div>
 </form>

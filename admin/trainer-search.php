@@ -21,7 +21,7 @@ if (mysqli_num_rows($query) > 0) {?>
 
   </td>
   </tr>
-  <tr><th>SN</th><th>Name</th><th>Address</th><th>phone</th><th>Professional</th><th>Image</th></tr>
+  <tr><th>SN</th><th>Name</th><th>Address</th><th>Phone</th><th>Email</th><th>Professional</th><th>Image</th></tr>
 	<?php
 	$sn=1;
 	while ($row = mysqli_fetch_assoc($query)) {?>
@@ -30,6 +30,7 @@ if (mysqli_num_rows($query) > 0) {?>
           <td><?php echo $row['name']?></td>
           <td><?php echo $row['address']?></td>
           <td><?php echo $row['phone']?></td>
+          <td><?php echo $row['email']?></td>
           <td><?php echo $row['qualification']?></td>
           <td>
               <?php 

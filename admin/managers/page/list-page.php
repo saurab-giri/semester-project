@@ -1,4 +1,12 @@
-
+<div class="msg success">         
+  <span>
+    <?php if( isset($_SESSION['message']) ){
+      echo $_SESSION['message'];
+      unset($_SESSION['message']);      
+    }
+    ?>
+  </span>    
+</div>
 <table class="table table-hover table-bordered table-striped">
   <tbody class="page-list">
     	<tr>

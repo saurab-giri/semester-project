@@ -15,7 +15,14 @@
             <option value="Saturday">Saturday</option>
 
           </select></td></tr>
-      <tr><td>Time</td><td><input type="time" name="time1" placeholder="Time" class="time-input" required> -  
+      <tr><td>Time</td><!-- <td>
+          <select class="time-input" name="time">
+            <option value="5:00 - 6:00">5:00 - 6:00</option>
+            <option value="6:00 - 7:00">6:00 - 7:00</option>
+            <option value="7:00 - 8:00">7:00 - 8:00</option>
+            <option value="8:00 - 9:00">8:00 - 9:00</option>
+          </select>
+      </td> --> <td><input type="time" name="time1" placeholder="Time" class="time-input" required> -  
 		  <input type="time" name="time2"  placeholder="Time" required></td></tr>
         </tr> 
         <tr><td>Session</td><td><input type="text" name="session" placeholder="Session" class="form-control" required></td></tr>

@@ -1,6 +1,4 @@
-<?php 
-session_start();
-?>
+
 <form method="post" action="<?php echo SITE_URL.'/admin/action.php';?>" enctype="multipart/form-data">
 	<div class="form-div form-group bg-dark text-white">
 		<h3 class="text-center head">Payment Information</h3>
@@ -14,7 +12,7 @@ session_start();
 			<tr>
 				<td>Phone: </td>
 				<td>
-				<input type="text" name="phone" class="form-control" required />
+				<input type="number" name="phone" class="form-control" required />
 				</td>
 			 	<td class="msg"><?php
 			        if(isset($_SESSION["contact_message"])){
@@ -27,7 +25,7 @@ session_start();
 			<tr>
 				<td>Email: </td>
 				<td>
-					<input type="text" name="email" class="form-control" required />
+					<input type="email" name="email" class="form-control" required />
 				</td>
 				<td class="msg email-msg error">         
 			    <span>
@@ -44,24 +42,25 @@ session_start();
 				<td class="time-input">Choosen Package:</td>
 			 	<td class="form-check-inline choose-input">
 			  	
-			   		<input type="radio" class="form-check-input" name="package" value="1 month"> 1 month Package
+			   		<input type="radio" class="form-check-input" name="package" value="1 month"> 1 month Package(Rs.1000)
 			
 				</td>
 				<td class="form-check-inline choose-input">
 					
-					<input type="radio" class="form-check-input" name="package" value="2 month"> 2 month Package
+					<input type="radio" class="form-check-input" name="package" value="2 month"> 2 month Package(Rs.1800)
 					
 				</td>
+			
 				<td class="form-check-inline choose-input">
 					
-					<input type="radio" class="form-check-input" name="package" value="3 month"> 3 month Package
+					<input type="radio" class="form-check-input" name="package" value="3 month"> 3 month Package(Rs.2700)
 					
 				</td>
 			</tr>
 			<tr>
 				<td>Received Amount: </td>
 				<td>
-					<input type="text" name="received" value="0" class="form-control"/>
+					<input type="number" name="received" value="0" class="form-control"/>
 				</td>
 			</tr>
 			<tr>

@@ -1,3 +1,6 @@
+
+
+
 <?php 
   	$servername = "localhost";
 	$username = "root";
@@ -11,7 +14,7 @@
 	  die("Connection failed: " . $conn->connect_error);
 	}
 
-	$sql = "SELECT * FROM gym_trainer limit 6";
+	$sql = "SELECT * FROM gym_trainer limit 3";
 	$result = $conn->query($sql);
 	if (mysqli_num_rows($result) > 0) {
 	// output data of each row

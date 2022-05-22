@@ -27,7 +27,7 @@ if(mysqli_num_rows($result)>0){
       <tr>
         <td>Phone</td>
         <td>
-          <input type="text" name="phone" value="<?php echo $pay_row['phone'];?>" class="form-control col-sm-8"/>
+          <input type="number" name="phone" value="<?php echo $pay_row['phone'];?>" class="form-control col-sm-8"/>
         </td>
       </tr>
       <tr class="msg email-msg error">         
@@ -42,7 +42,7 @@ if(mysqli_num_rows($result)>0){
       <tr>
         <td>Email</td>
         <td>
-          <input type="text" name="email" value="<?php echo $pay_row['email'];?>" class="form-control col-sm-8"/>
+          <input type="email" name="email" value="<?php echo $pay_row['email'];?>" class="form-control col-sm-8"/>
         </td>
       </tr>
       <tr class="msg email-msg error">         
